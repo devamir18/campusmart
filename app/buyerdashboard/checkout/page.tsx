@@ -465,8 +465,9 @@ export default function CheckoutPage() {
                 </div>
               </dl>
               <p className="mt-4 rounded-xl bg-blue-50 px-3 py-3 text-xs leading-5 text-blue-900">
-                Pay the seller on delivery or pickup. Online payment is not
-                available in this demo.
+                In the live marketplace, your payment will be held securely
+                until you confirm delivery. This demo does not charge or hold
+                funds.
               </p>
               <button
                 type="submit"
@@ -475,7 +476,8 @@ export default function CheckoutPage() {
                 Place demo order
               </button>
               <p className="mt-3 text-center text-[11px] leading-5 text-slate-500">
-                This demo does not send orders to sellers or collect payment.
+                Demo only: this order is not sent to a seller, and no payment
+                is charged or held.
               </p>
               <Link
                 href="/buyerdashboard"

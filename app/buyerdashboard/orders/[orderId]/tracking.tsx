@@ -291,14 +291,14 @@ export default function OrderTracking({ orderId }: { orderId: string }) {
             <section className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
               <div className="flex items-center gap-2 text-sm font-bold text-emerald-700">
                 <span aria-hidden="true" className="text-lg">✓</span>
-                Payment on {order.fulfillment === "delivery" ? "delivery" : "pickup"}
+                Payment protection
               </div>
               <p className="mt-3 text-2xl font-bold text-slate-900">
                 {formatNaira(order.total)}
               </p>
               <p className="mt-2 text-xs leading-5 text-emerald-900">
-                Pay the seller when you receive your order. No payment is held
-                or processed by this demo.
+                In the live marketplace, payment is held securely until you
+                confirm delivery. This demo does not charge or hold funds.
               </p>
               <button
                 type="button"
