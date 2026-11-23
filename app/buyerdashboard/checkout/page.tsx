@@ -82,8 +82,8 @@ export default function CheckoutPage() {
   const [fulfillmentByStore, setFulfillmentByStore] = useState<
     Record<string, "delivery" | "pickup">
   >({});
-  const [customerName, setCustomerName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [customerName, setCustomerName] = useState<string | null>(null);
+  const [phone, setPhone] = useState<string | null>(null);
   const [address, setAddress] = useState<string | null>(null);
   const [confirmation, setConfirmation] = useState<OrderConfirmation | null>(
     null
@@ -107,6 +107,8 @@ export default function CheckoutPage() {
   const total = subtotal + deliveryTotal;
   const defaultAddress =
     account.addresses.find((item) => item.isDefault)?.address ?? "";
+  const customerNameValue = customerName ?? account.profile.fullName;
+  const phoneValue = phone ?? account.profile.phone;
   const deliveryAddress = address ?? defaultAddress;
   const needsAddress = storeOrders.some(
     (order) =>
@@ -137,14 +139,14 @@ export default function CheckoutPage() {
           fulfillmentByStore[order.store.id] ??
           (order.store.deliveryAvailable ? "delivery" : "pickup"),
         address: deliveryAddress,
-        customerName,
-        phone,
+        customerName: customerNameValue,
+        phone: phoneValue,
       })
     );
     setConfirmation({
       items: cartItems.map((item) => ({ ...item })),
       total,
-      customerName: customerName.trim(),
+      customerName: customerNameValue.trim(),
       orderIds,
     });
     clearCart();
@@ -411,7 +413,7 @@ export default function CheckoutPage() {
                     <input
                       required
                       autoComplete="name"
-                      value={customerName}
+                      value={customerNameValue}
                       onChange={(event) => setCustomerName(event.target.value)}
                       className="mt-1.5 h-10 w-full rounded-lg border border-slate-300 px-3 text-sm text-slate-900 focus:border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700/20"
                     />
@@ -422,7 +424,7 @@ export default function CheckoutPage() {
                       required
                       type="tel"
                       autoComplete="tel"
-                      value={phone}
+                      value={phoneValue}
                       onChange={(event) => setPhone(event.target.value)}
                       className="mt-1.5 h-10 w-full rounded-lg border border-slate-300 px-3 text-sm text-slate-900 focus:border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700/20"
                     />

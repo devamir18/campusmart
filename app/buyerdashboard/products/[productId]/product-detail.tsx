@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useBuyerAccount } from "../../account-context";
 import { useBuyerCart } from "../../cart-context";
 import Top from "../../layout/top";
 import { formatNaira, type BuyerProduct } from "../../product-data";
@@ -27,11 +28,16 @@ export default function ProductDetail({
   relatedProducts: BuyerProduct[];
 }) {
   const [quantity, setQuantity] = useState(1);
+  const { account } = useBuyerAccount();
   const { addToCart: addItemToCart } = useBuyerCart();
   const [cartMessage, setCartMessage] = useState("");
-  const [deliveryAddress, setDeliveryAddress] = useState("Block C, Room 214");
+  const [deliveryAddress, setDeliveryAddress] = useState<string | null>(null);
   const [isEditingAddress, setIsEditingAddress] = useState(false);
-  const [addressDraft, setAddressDraft] = useState(deliveryAddress);
+  const defaultAddress =
+    account.addresses.find((address) => address.isDefault)?.address ??
+    "Add an address in your account";
+  const currentDeliveryAddress = deliveryAddress ?? defaultAddress;
+  const [addressDraft, setAddressDraft] = useState(currentDeliveryAddress);
   const [addressError, setAddressError] = useState("");
 
   function addToCart() {
@@ -216,7 +222,7 @@ export default function ProductDetail({
                     />
                   ) : (
                     <p className="mt-1 truncate text-xs text-slate-600">
-                      {deliveryAddress}
+                      {currentDeliveryAddress}
                     </p>
                   )}
                 </div>
@@ -232,7 +238,7 @@ export default function ProductDetail({
                   <button
                     type="button"
                     onClick={() => {
-                      setAddressDraft(deliveryAddress);
+                      setAddressDraft(currentDeliveryAddress);
                       setIsEditingAddress(true);
                     }}
                     className="text-xs font-semibold text-blue-700 hover:text-blue-900"
