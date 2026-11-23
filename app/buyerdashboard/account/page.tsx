@@ -393,6 +393,7 @@ export default function BuyerAccountPage() {
                 </h2>
                 <button
                   type="button"
+                  disabled={!isLoaded}
                   onClick={() => openAddressForm()}
                   className="rounded-full border border-slate-300 px-4 py-2 text-[10px] font-semibold text-slate-700 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700"
                 >
@@ -428,6 +429,7 @@ export default function BuyerAccountPage() {
                       <div className="mt-4 flex items-center gap-4 pl-5 text-[10px]">
                         <button
                           type="button"
+                          disabled={!isLoaded}
                           onClick={() => openAddressForm(address)}
                           className="font-semibold text-indigo-700 hover:text-indigo-900"
                         >
@@ -436,6 +438,7 @@ export default function BuyerAccountPage() {
                         {!address.isDefault && (
                           <button
                             type="button"
+                            disabled={!isLoaded}
                             onClick={() => setDefaultAddress(address.id)}
                             className="font-medium text-slate-600 hover:text-slate-900"
                           >
@@ -444,6 +447,7 @@ export default function BuyerAccountPage() {
                         )}
                         <button
                           type="button"
+                          disabled={!isLoaded}
                           onClick={() => removeAddress(address.id)}
                           className="font-medium text-slate-500 hover:text-red-700"
                         >
@@ -503,6 +507,7 @@ export default function BuyerAccountPage() {
                     </button>
                     <button
                       type="submit"
+                      disabled={!isLoaded}
                       className="rounded-full bg-indigo-700 px-4 py-2 text-[10px] font-semibold text-white hover:bg-indigo-800"
                     >
                       Save address
@@ -514,8 +519,14 @@ export default function BuyerAccountPage() {
 
             <section className="flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-amber-100 p-5">
               <div className="flex items-center gap-3">
-                <span className="flex size-11 items-center justify-center rounded-xl bg-amber-400 text-xl font-bold text-white">
-                  M
+                <span className="flex size-11 items-center justify-center rounded-xl bg-amber-400">
+                  <Image
+                    src="/image/campuslogo.svg"
+                    alt=""
+                    width={28}
+                    height={28}
+                    className="size-7"
+                  />
                 </span>
                 <div>
                   <h2 className="text-xs font-bold text-slate-900">
@@ -553,6 +564,7 @@ export default function BuyerAccountPage() {
                   Order status updates
                   <input
                     type="checkbox"
+                    disabled={!isLoaded}
                     checked={account.notifications.orderUpdates}
                     onChange={(event) =>
                       changeNotification("orderUpdates", event.target.checked)
@@ -564,6 +576,7 @@ export default function BuyerAccountPage() {
                   Marketplace news and offers
                   <input
                     type="checkbox"
+                    disabled={!isLoaded}
                     checked={account.notifications.marketplaceNews}
                     onChange={(event) =>
                       changeNotification(

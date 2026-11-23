@@ -15,6 +15,7 @@ import {
   type BuyerStore,
 } from "../product-data";
 import { useBuyerOrders } from "../orders-context";
+import { useBuyerAccount } from "../account-context";
 
 type CheckoutLine = {
   productId: string;
@@ -77,12 +78,13 @@ export default function CheckoutPage() {
     clearCart,
   } = useBuyerCart();
   const { createDemoOrder } = useBuyerOrders();
+  const { account } = useBuyerAccount();
   const [fulfillmentByStore, setFulfillmentByStore] = useState<
     Record<string, "delivery" | "pickup">
   >({});
   const [customerName, setCustomerName] = useState("");
   const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState<string | null>(null);
   const [confirmation, setConfirmation] = useState<OrderConfirmation | null>(
     null
   );
@@ -103,6 +105,9 @@ export default function CheckoutPage() {
     return total + (fulfillment === "delivery" ? order.store.deliveryFee : 0);
   }, 0);
   const total = subtotal + deliveryTotal;
+  const defaultAddress =
+    account.addresses.find((item) => item.isDefault)?.address ?? "";
+  const deliveryAddress = address ?? defaultAddress;
   const needsAddress = storeOrders.some(
     (order) =>
       order.store.deliveryAvailable &&
@@ -131,7 +136,7 @@ export default function CheckoutPage() {
         fulfillment:
           fulfillmentByStore[order.store.id] ??
           (order.store.deliveryAvailable ? "delivery" : "pickup"),
-        address,
+        address: deliveryAddress,
         customerName,
         phone,
       })
@@ -429,7 +434,7 @@ export default function CheckoutPage() {
                         required
                         autoComplete="street-address"
                         rows={3}
-                        value={address}
+                        value={deliveryAddress}
                         onChange={(event) => setAddress(event.target.value)}
                         className="mt-1.5 w-full resize-y rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700/20"
                       />
