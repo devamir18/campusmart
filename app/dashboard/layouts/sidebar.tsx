@@ -34,13 +34,13 @@ type SidebarProps = {
 
 const navigationByDashboard: Record<DashboardType, NavigationItem[]> = {
   seller: [
-    { label: "Overview", icon: "overview" },
+    { label: "Overview", icon: "overview", href: "/dashboard/page"},
     { label: "Orders", icon: "orders", href: "/dashboard/pages/orders" },
     { label: "Products", icon: "products", href: "/dashboard/pages/product"  },
-    { label: "Earnings", icon: "earnings" },
-    { label: "Store profile", icon: "store" },
-    { label: "Notifications", icon: "notifications" },
-    { label: "Help and support", icon: "help" },
+    { label: "Earnings", icon: "earnings", href: "/dashboard/pages/earning"  },
+    { label: "Store profile", icon: "store", href: "/dashboard/pages/store" },
+    { label: "Notifications", icon: "notifications", href: "/dashboard/pages/notifications" },
+    { label: "Help and support", icon: "help", href: "/dashboard/pages/support" },
   ],
   buyer: [
     { label: "Overview", icon: "overview" },

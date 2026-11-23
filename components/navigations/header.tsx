@@ -18,6 +18,7 @@ export default function Header() {
 
   if (
     pathname.startsWith("/dashboard") ||
+    pathname.startsWith("/buyerdashboard") ||
     ["/login", "/signup"].includes(pathname)
   ) {
     return null;
@@ -60,7 +61,7 @@ export default function Header() {
           <Link href="/login" className="rounded px-4 py-2 text-sm text-white hover:bg-white/10">
             Sign In
           </Link>
-          <Link href="/dashboard" className="rounded-lg bg-blue-500 px-4 py-2 text-sm text-white hover:bg-blue-400">
+          <Link href="/buyerdashboard" className="rounded-lg bg-blue-500 px-4 py-2 text-sm text-white hover:bg-blue-400">
             Log in
           </Link>
         </div>

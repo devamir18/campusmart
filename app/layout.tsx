@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import React from "react"; // Added back so React.ReactNode resolves properly
+import React, { Suspense } from "react"; // Added back so React.ReactNode resolves properly
 
 // Component imports
 import Header from "@/components/navigations/header";
@@ -33,7 +33,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Header />
+        <Suspense fallback={null}>
+          <Header />
+        </Suspense>
         
       <main className="flex-grow">
           {children}
